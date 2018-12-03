@@ -9,8 +9,8 @@
 
     <ImageView
         android:id="@+id/Role1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="123dp"
+        android:layout_height="123dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
@@ -21,12 +21,12 @@
         app:layout_constraintEnd_toStartOf="@+id/Role2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars" />
+        tools:srcCompat="@mipmap/IMG_0580" />
 
     <ImageView
         android:id="@+id/Role2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="123dp"
+        android:layout_height="123"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="91dp"
@@ -37,12 +37,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
-        tools:srcCompat="@tools:sample/avatars" />
+        tools:srcCompat="@mipmap/IMG_0581" />
 
     <ImageView
         android:id="@+id/Role3"
-        android:layout_width="wrap_content"
-        android:layout_height="128dp"
+        android:layout_width="123"
+        android:layout_height="123"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
@@ -53,30 +53,30 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/Role2"
         app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars" />
+        tools:srcCompat="@mipmap/IMG_0585" />
 
     <EditText
         android:id="@+id/Game_Title"
-        android:layout_width="89dp"
+        android:layout_width="116dp"
         android:layout_height="55dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="7dp"
+        android:layout_marginRight="7dp"
         android:ems="20"
         android:inputType="text|textCapCharacters|textCapWords"
-        android:text="TITLE"
+        android:text="JUMPING!!!!"
         android:textFontWeight="5"
         android:textSize="20sp"
         android:textStyle="bold|italic"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.016"
+        app:layout_constraintHorizontal_bias="0.017"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/start_button"
+        android:id="@+id/start_button3"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -95,7 +95,7 @@
 
     <Button
         android:id="@+id/start_button2"
-        android:layout_width="102dp"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
@@ -111,8 +111,8 @@
         app:layout_constraintVertical_bias="0.919" />
 
     <Button
-        android:id="@+id/start_button3"
-        android:layout_width="98dp"
+        android:id="@+id/start_button1"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
@@ -129,46 +129,40 @@
         app:layout_constraintVertical_bias="0.919" />
 
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="54dp"
-        android:layout_height="19dp"
-        android:text="Name1"
-        app:layout_constraintBottom_toBottomOf="@+id/Role1"
-        app:layout_constraintEnd_toEndOf="@+id/Role1"
-        app:layout_constraintStart_toStartOf="@+id/Role1"
-        app:layout_constraintTop_toTopOf="@+id/Role1"
-        app:layout_constraintVertical_bias="0.954" />
-
-    <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/HighScore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Name2"
-        app:layout_constraintBottom_toBottomOf="@+id/Role2"
-        app:layout_constraintEnd_toEndOf="@+id/Role2"
-        app:layout_constraintHorizontal_bias="0.506"
-        app:layout_constraintStart_toStartOf="@+id/Role2"
-        app:layout_constraintTop_toTopOf="@+id/Role2"
-        app:layout_constraintVertical_bias="0.944" />
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="High Score:"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.83"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.13" />
 
     <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="17dp"
-        android:text="Name3"
-        app:layout_constraintBottom_toBottomOf="@+id/Role3"
-        app:layout_constraintEnd_toEndOf="@+id/Role3"
-        app:layout_constraintHorizontal_bias="0.506"
-        app:layout_constraintStart_toStartOf="@+id/Role3"
-        app:layout_constraintTop_toTopOf="@+id/Role3"
-        app:layout_constraintVertical_bias="0.936" />
-
-    <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/HighScore_Number"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        tools:layout_editor_absoluteX="516dp"
-        tools:layout_editor_absoluteY="16dp" />
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="0000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.142"
+        app:layout_constraintStart_toEndOf="@+id/HighScore"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.13" />
 
 </android.support.constraint.ConstraintLayout>
