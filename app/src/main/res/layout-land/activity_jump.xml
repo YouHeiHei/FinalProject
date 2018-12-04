@@ -7,6 +7,26 @@
     tools:context=".Jump"
     tools:layout_editor_absoluteY="73dp">
 
+    <TextView
+        android:id="@+id/gameTitle"
+        android:layout_width="106dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginBottom="1dp"
+        android:text="JUMP!!!"
+        android:textSize="30sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.019"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.051" />
+
     <ImageView
         android:id="@+id/Role1"
         android:layout_width="123dp"
@@ -54,26 +74,6 @@
         app:layout_constraintStart_toEndOf="@+id/Role2"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@mipmap/rabbit1" />
-
-    <EditText
-        android:id="@+id/Game_Title"
-        android:layout_width="116dp"
-        android:layout_height="55dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="7dp"
-        android:layout_marginRight="7dp"
-        android:ems="20"
-        android:inputType="text|textCapCharacters|textCapWords"
-        android:text="JUMPING!!!!"
-        android:textFontWeight="5"
-        android:textSize="20sp"
-        android:textStyle="bold|italic"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.017"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/start_button3"
