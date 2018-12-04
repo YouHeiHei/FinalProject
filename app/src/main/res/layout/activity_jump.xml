@@ -21,12 +21,12 @@
         app:layout_constraintEnd_toStartOf="@+id/Role2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@mipmap/IMG_0580" />
+        tools:srcCompat="@mipmap/dino1" />
 
     <ImageView
         android:id="@+id/Role2"
         android:layout_width="123dp"
-        android:layout_height="123"
+        android:layout_height="123dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="91dp"
@@ -37,12 +37,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
-        tools:srcCompat="@mipmap/IMG_0581" />
+        tools:srcCompat="@mipmap/turtle1" />
 
     <ImageView
         android:id="@+id/Role3"
-        android:layout_width="123"
-        android:layout_height="123"
+        android:layout_width="123dp"
+        android:layout_height="123dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
@@ -53,7 +53,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/Role2"
         app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@mipmap/IMG_0585" />
+        tools:srcCompat="@mipmap/rabbit1" />
 
     <EditText
         android:id="@+id/Game_Title"

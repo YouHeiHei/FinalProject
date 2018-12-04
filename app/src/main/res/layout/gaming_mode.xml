@@ -7,7 +7,7 @@
     android:layout_height="match_parent">
 
     <ImageButton
-        android:id="@+id/Jump Button"
+        android:id="@+id/JumpButton"
         android:layout_width="617dp"
         android:layout_height="338dp"
         android:layout_marginTop="-1dp"
@@ -58,7 +58,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/Jump Button"
+        app:layout_constraintTop_toTopOf="@+id/JumpButton"
         app:layout_constraintVertical_bias="1.0" />
 
     <ImageView
