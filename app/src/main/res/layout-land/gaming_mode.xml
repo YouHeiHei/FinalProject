@@ -8,8 +8,8 @@
 
     <ImageButton
         android:id="@+id/JumpButton"
-        android:layout_width="617dp"
-        android:layout_height="338dp"
+        android:layout_width="717dp"
+        android:layout_height="360dp"
         android:layout_marginTop="-1dp"
         android:layout_marginEnd="21dp"
         android:layout_marginRight="21dp"
@@ -27,10 +27,10 @@
         android:background="@android:color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.907"
+        app:layout_constraintHorizontal_bias="0.902"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.693" />
+        app:layout_constraintVertical_bias="0.72" />
 
     <ImageView
         android:id="@+id/PlayRole"
@@ -51,7 +51,7 @@
 
     <ImageView
         android:id="@+id/GroundImage"
-        android:layout_width="592dp"
+        android:layout_width="684dp"
         android:layout_height="77dp"
         android:background="@android:color/holo_green_dark"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -61,6 +61,25 @@
         app:layout_constraintTop_toTopOf="@+id/JumpButton"
         app:layout_constraintVertical_bias="1.0" />
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="Tap the Screen to Start"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/GroundImage"
+        app:layout_constraintHorizontal_bias="0.55"
+        app:layout_constraintStart_toStartOf="@+id/GroundImage"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.941" />
+
     <ImageView
         android:id="@+id/Barrier1"
         android:layout_width="60dp"
@@ -68,8 +87,9 @@
         android:background="@android:color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.781"
+        app:layout_constraintHorizontal_bias="0.776"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.693" />
+        app:layout_constraintVertical_bias="0.72" />
+
 </android.support.constraint.ConstraintLayout>

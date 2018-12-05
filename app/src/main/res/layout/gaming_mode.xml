@@ -9,7 +9,7 @@
     <ImageButton
         android:id="@+id/JumpButton"
         android:layout_width="433dp"
-        android:layout_height="551dp"
+        android:layout_height="619dp"
         android:layout_marginTop="-1dp"
         android:layout_marginEnd="21dp"
         android:layout_marginRight="21dp"
@@ -27,10 +27,10 @@
         android:background="@android:color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.716"
+        app:layout_constraintHorizontal_bias="0.698"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.796" />
+        app:layout_constraintVertical_bias="0.825" />
 
     <ImageView
         android:id="@+id/Barrier2"
@@ -39,10 +39,10 @@
         android:background="@android:color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.947"
+        app:layout_constraintHorizontal_bias="0.92"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.796" />
+        app:layout_constraintVertical_bias="0.825" />
 
     <ImageView
         android:id="@+id/PlayRole"
@@ -56,15 +56,15 @@
         android:background="@android:color/white"
         app:layout_constraintBottom_toTopOf="@+id/GroundImage"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.321"
+        app:layout_constraintHorizontal_bias="0.248"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
 
     <ImageView
         android:id="@+id/GroundImage"
-        android:layout_width="592dp"
-        android:layout_height="94dp"
+        android:layout_width="412dp"
+        android:layout_height="95dp"
         android:background="@android:color/holo_green_dark"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
