@@ -13,6 +13,7 @@
         android:layout_marginTop="-1dp"
         android:layout_marginEnd="21dp"
         android:layout_marginRight="21dp"
+        android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.26"
@@ -21,39 +22,13 @@
         app:srcCompat="@color/colorPrimary" />
 
     <ImageView
-        android:id="@+id/Barrier2"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:background="@android:color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.902"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.72" />
-
-    <ImageView
-        android:id="@+id/PlayRole"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginStart="100dp"
-        android:layout_marginLeft="100dp"
-        android:layout_marginTop="200dp"
-        android:layout_marginEnd="420dp"
-        android:layout_marginRight="420dp"
-        android:background="@android:color/white"
-        app:layout_constraintBottom_toTopOf="@+id/GroundImage"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.321"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <ImageView
-        android:id="@+id/GroundImage"
-        android:layout_width="684dp"
+        android:id="@+id/groundImage"
+        android:layout_width="736dp"
         android:layout_height="77dp"
+        android:layout_marginStart="680dp"
+        android:layout_marginLeft="680dp"
         android:background="@android:color/holo_green_dark"
+        android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -61,11 +36,26 @@
         app:layout_constraintTop_toTopOf="@+id/JumpButton"
         app:layout_constraintVertical_bias="1.0" />
 
+    <ImageView
+        android:id="@+id/GroundImage"
+        android:layout_width="684dp"
+        android:layout_height="77dp"
+        android:background="@android:color/holo_green_dark"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/JumpButton"
+        app:layout_constraintVertical_bias="1.0" />
+
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/tapScreen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="7dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
@@ -74,9 +64,8 @@
         android:textStyle="bold"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/GroundImage"
-        app:layout_constraintHorizontal_bias="0.55"
-        app:layout_constraintStart_toStartOf="@+id/GroundImage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.941" />
 
@@ -85,11 +74,41 @@
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:background="@android:color/black"
+        android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.776"
+        app:layout_constraintHorizontal_bias="0.773"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.72" />
+        app:layout_constraintVertical_bias="0.745" />
+
+    <ImageView
+        android:id="@+id/Barrier2"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="@android:color/black"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.898"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.745" />
+
+    <ImageView
+        android:id="@+id/PlayRole"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="196dp"
+        android:layout_marginEnd="420dp"
+        android:layout_marginRight="420dp"
+        android:scaleType="fitXY"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.269"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/dino1" />
 
 </android.support.constraint.ConstraintLayout>
