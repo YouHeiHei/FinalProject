@@ -2,10 +2,11 @@ package com.example.a17479.finalproject;
 
 
 import android.content.Intent;
-import android.support.constraint.solver.widgets.Rectangle;
+import android.graphics.Rect;
+import android.graphics.drawable.AnimationDrawable;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
@@ -19,37 +20,49 @@ import java.util.Random;
 
 
 public class Jump extends AppCompatActivity {
+    public boolean collide = false;
     public boolean jumpState = false;
     public boolean startRun = false;
     public static int type;
     private int score = 0;
-    public int x, y;
-    public boolean alive = true;
-    public int[] dino = {R.drawable.dino1, R.drawable.dino2};
-    public int[] turtle = {R.drawable.turtle1, R.drawable.turtle2};
-    public int[] rabbit = {R.drawable.rabbit1, R.drawable.rabbit2};
+    TextView tap;//提示点击开始
+    TextView score_num;//成绩
+    ImageView background;//背景1
+    ImageView background_fill;//背景2
+    ImageView playRole;//角色
+    ImageView barrier1;
+    ImageView barrier2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.gaming_mode);
         final Handler handler = new Handler();//程序停止开始控制
-        final TextView tap = findViewById(R.id.tapScreen);//提示点击开始
-        final TextView score_num = findViewById(R.id.score_num);//成绩
-        final ImageView background = findViewById(R.id.GroundImage);//背景1
-        final ImageView background_fill = findViewById(R.id.groundImage);//背景2
-        final ImageView playRole = findViewById(R.id.PlayRole);//角色
-        final ImageView barrier1 = findViewById(R.id.Barrier1);
-        final ImageView barrier2 = findViewById(R.id.Barrier2);
+
+        tap = findViewById(R.id.tapScreen);
+        score_num = findViewById(R.id.score_num);
+        background = findViewById(R.id.GroundImage);
+        background_fill = findViewById(R.id.groundImage);
+        playRole = findViewById(R.id.PlayRole);
+        barrier1 = findViewById(R.id.Barrier1);
+        barrier2 = findViewById(R.id.Barrier2);
 
 //设定动物图片
         if (type == 1) {
-            playRole.setImageResource(R.drawable.dino1);
-        }
-        if (type == 2) {
-            playRole.setImageResource((R.drawable.turtle1));
-        }
-        if (type == 3) {
-            playRole.setImageResource((R.drawable.rabbit1));
+            playRole.setBackgroundResource(R.drawable.role_moving1);
+            AnimationDrawable animation1 = (AnimationDrawable) playRole.getBackground();
+            animation1.setOneShot(false);   //设置是否只播放一次，和上面xml配置效果一致
+            animation1.start();             //启动动画
+        } else if (type == 2) {
+            playRole.setBackgroundResource(R.drawable.role_moving2);
+            AnimationDrawable animation2 = (AnimationDrawable) playRole.getBackground();
+            animation2.setOneShot(false);   //设置是否只播放一次，和上面xml配置效果一致
+            animation2.start();             //启动动画
+        } else if (type == 3) {
+            playRole.setBackgroundResource(R.drawable.role_moving3);
+            AnimationDrawable animation3 = (AnimationDrawable) playRole.getBackground();
+            animation3.setOneShot(false);   //设置是否只播放一次，和上面xml配置效果一致
+            animation3.start();             //启动动画
         }
         background.setImageResource(R.drawable.desert2);
         background_fill.setImageResource(R.drawable.desert2);
@@ -106,24 +119,22 @@ public class Jump extends AppCompatActivity {
         final Thread move = new Thread(new Runnable() {
             @Override
             public void run() {
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (type == 1) {
-                            playRole.setImageResource(R.drawable.dino2);
-                            handler.postDelayed(this, 300);
-                            playRole.setImageResource(R.drawable.dino1);
-                        } else if (type == 2) {
-                            playRole.setImageResource(R.drawable.turtle2);
-                            handler.postDelayed(this, 300);
-                            playRole.setImageResource(R.drawable.turtle1);
-                        } else if (type == 3) {
-                            playRole.setImageResource(R.drawable.rabbit2);
-                            handler.postDelayed(this, 300);
-                            playRole.setImageResource(R.drawable.rabbit2);
-                        }
-                    }
-                }, 2000);
+                 if (type == 1) {
+                     playRole.setBackgroundResource(R.drawable.role_moving1);
+                     AnimationDrawable animation1 = (AnimationDrawable) playRole.getBackground();
+                     animation1.setOneShot(false);   //设置是否只播放一次，和上面xml配置效果一致
+                     animation1.start();             //启动动画
+                } else if (type == 2) {
+                     playRole.setBackgroundResource(R.drawable.role_moving2);
+                     AnimationDrawable animation2 = (AnimationDrawable) playRole.getBackground();
+                     animation2.setOneShot(false);   //设置是否只播放一次，和上面xml配置效果一致
+                     animation2.start();             //启动动画
+                } else if (type == 3) {
+                     playRole.setBackgroundResource(R.drawable.role_moving3);
+                     AnimationDrawable animation3 = (AnimationDrawable) playRole.getBackground();
+                     animation3.setOneShot(false);   //设置是否只播放一次，和上面xml配置效果一致
+                     animation3.start();             //启动动画
+                }
             }
         });
 //跳跃
@@ -156,7 +167,6 @@ public class Jump extends AppCompatActivity {
                 barrier1.setAnimation(jump);
             }
         });
-
 //跳跃按钮
         final ImageButton jumpButton = findViewById(R.id.JumpButton);
         jumpButton.setOnClickListener(new View.OnClickListener() {
@@ -171,14 +181,100 @@ public class Jump extends AppCompatActivity {
                     startRun = true;
                 }
                 if (!jumpState) {
-                    try {
-                        jumpState = true;
-                        jump.run();
-                        jump.join();
-                    } catch (InterruptedException e) {
-                    }
+                    jumpState = true;
+                    jump.run();
+                    jump jump = new jump();
+                    jump.execute();
                 }
+                Collision collision = new Collision();
+                collision.execute();
             }
         });
+    }
+
+    class Collision extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            do {
+                if (!collide) {
+                    //collide = true;
+                    Rect play = new Rect();
+                    playRole.getHitRect(play);
+                    double px = play.centerX();
+                    double py = play.centerY();
+                    Rect bar1 = new Rect();
+                    barrier1.getHitRect(bar1);
+                    double b1x = bar1.centerX();
+                    double b1y = bar1.centerY();
+                    Rect bar2 = new Rect();
+                    barrier2.getHitRect(bar2);
+                    int b2x = bar2.centerX();
+                    int b2y = bar2.centerY();
+                    if (Math.pow((b1x - px), 2) + Math.pow((b1y - py), 2) < 10000) {
+                        collide = true;
+                    } else if (Math.pow((b2x - px), 2) + Math.pow((b2y - py), 2) < 10000) {
+                        collide = true;
+                    }
+                } else {
+                    break;
+                }
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    //e.printStackTrace();
+                }
+            } while (true);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            Intent intent = new Intent(Jump.this, Start.class);
+            setContentView(R.layout.activity_jump);
+            startActivity(intent);
+            Start.lastScore = score;
+            if (score > Start.highScore) {
+                Start.highScore = score;
+            }
+        }
+    }
+
+    class jump extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+        protected Void doInBackground(Void... voids) {
+            do {
+                if (true) {
+                } else {
+                    break;
+                }
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    //e.printStackTrace();
+                }
+            } while (true);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            Intent intent = new Intent(Jump.this, Start.class);
+            setContentView(R.layout.activity_jump);
+            startActivity(intent);
+            Start.lastScore = score;
+            if (score > Start.highScore) {
+                Start.highScore = score;
+            }
+        }
     }
 }
