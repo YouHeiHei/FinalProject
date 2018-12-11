@@ -34,6 +34,7 @@ import java.util.Random;
 
 
 public class Jump extends AppCompatActivity {
+    private final String api_key = "5af609cc3c737850c2826865d096692aaa34607577a63f64b16d0fc5f0fa9d90";
     public boolean collide = false;
     public boolean jumpState = false;
     public boolean startRun = false;
@@ -56,7 +57,7 @@ public class Jump extends AppCompatActivity {
         try {
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                     Request.Method.GET,
-                    "https://api.unsplash.com/photos/random",
+                    "https://api.unsplash.com/photos/random?client_id=" + api_key,
                     null,
                     new Response.Listener<JSONObject>() {
                         //@Override
@@ -72,6 +73,7 @@ public class Jump extends AppCompatActivity {
             jsonObjectRequest.setShouldCache(false);
             requestQueue.add(jsonObjectRequest);
         } catch (Exception e) {
+            Log.d(TAG, "startAPICall error: " + e.toString());
             e.printStackTrace();
         }
     }
@@ -84,15 +86,18 @@ public class Jump extends AppCompatActivity {
             JSONObject urls = response.getJSONObject("urls");
             String url = urls.getString("raw");
             Log.d(TAG, "Url is" + url);
-            Picasso.get().load("url").into(barrier1);
+            Picasso.get().load(url).into(barrier1);
             // Example of how to pull a field off the returned JSON object
             //Log.i(TAG, response.get("hostname").toString());
-        } catch (JSONException ignored) { }
+        } catch (JSONException e) {
+            Log.d(TAG, "apiCallDone error: " + e.toString());
+        }
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.gaming_mode);
+        requestQueue = Volley.newRequestQueue(this);
         final Handler handler = new Handler();//程序停止开始控制
 
         tap = findViewById(R.id.tapScreen);
@@ -102,7 +107,11 @@ public class Jump extends AppCompatActivity {
         playRole = findViewById(R.id.PlayRole);
         barrier1 = findViewById(R.id.Barrier1);
         barrier2 = findViewById(R.id.Barrier2);
-        startAPICall();
+        try {
+            startAPICall();
+        } catch (Exception e) {
+            Log.d(TAG, "api call error: " + e.toString());
+        }
 
 //设定动物图片
         if (type == 1) {
