@@ -1,4 +1,6 @@
+//package edu.illinois.cs.cs125.lab11;
 package com.example.a17479.finalproject;
+
 
 import android.content.Intent;
 import android.graphics.Bitmap;

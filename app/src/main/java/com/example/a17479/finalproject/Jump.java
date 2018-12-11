@@ -1,4 +1,5 @@
 package com.example.a17479.finalproject;
+//package edu.illinois.cs.cs125.lab11;
 
 
 import android.content.Intent;
@@ -7,6 +8,7 @@ import android.graphics.drawable.AnimationDrawable;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
@@ -16,6 +18,18 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.os.Handler;
+
+import org.json.JSONObject;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+import com.squareup.picasso.Picasso;
+
+import org.json.JSONException;
+
 import java.util.Random;
 
 
@@ -35,6 +49,46 @@ public class Jump extends AppCompatActivity {
     ImageView barrier1;
     ImageView barrier2;
 
+    private static RequestQueue requestQueue;
+    private static final String TAG = "Youheihei";
+
+    void startAPICall() {
+        try {
+            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
+                    Request.Method.GET,
+                    "https://api.unsplash.com/photos/random",
+                    null,
+                    new Response.Listener<JSONObject>() {
+                        //@Override
+                        public void onResponse(final JSONObject response) {
+                            apiCallDone(response);
+                        }
+                    }, new Response.ErrorListener() {
+                //@Override
+                public void onErrorResponse(final VolleyError error) {
+                    Log.e(TAG, error.toString());
+                }
+            });
+            jsonObjectRequest.setShouldCache(false);
+            requestQueue.add(jsonObjectRequest);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    void apiCallDone(final JSONObject response) {
+        try {
+            Log.d(TAG, response.toString(2));
+            //TextView showapi = findViewById(R.id.showapi);
+            //showapi.setText("api get");
+            JSONObject urls = response.getJSONObject("urls");
+            String url = urls.getString("raw");
+            Log.d(TAG, "Url is" + url);
+            Picasso.get().load("url").into(barrier1);
+            // Example of how to pull a field off the returned JSON object
+            //Log.i(TAG, response.get("hostname").toString());
+        } catch (JSONException ignored) { }
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +102,7 @@ public class Jump extends AppCompatActivity {
         playRole = findViewById(R.id.PlayRole);
         barrier1 = findViewById(R.id.Barrier1);
         barrier2 = findViewById(R.id.Barrier2);
+        startAPICall();
 
 //设定动物图片
         if (type == 1) {
@@ -151,6 +206,7 @@ public class Jump extends AppCompatActivity {
                 jump.setRepeatMode(Animation.RESTART);
                 jump.setInterpolator(new LinearInterpolator());
                 barrier1.setAnimation(jump);
+                barrier2.setAnimation(jump);
             }
         });
 //跳跃
@@ -181,13 +237,14 @@ public class Jump extends AppCompatActivity {
                     scoreKeeper.run();
                     barrier.run();
                     startRun = true;
-                }
-                if (!jumpState) {
-                    jumpState = true;
-                    //jump.run();
                     jump jump = new jump();
                     jump.execute();
                 }
+                jumpState = true;
+//                if (!jumpState) {
+//                    jumpState = true;
+//                    //jump.run();
+//                }
                 Collision collision = new Collision();
                 collision.execute();
             }
@@ -223,7 +280,6 @@ public class Jump extends AppCompatActivity {
                         collide = true;
                     }
                 } else {
-                    jumpState = false;
                     break;
                 }
                 try {
@@ -272,11 +328,12 @@ public class Jump extends AppCompatActivity {
         }
         protected Void doInBackground(Void... voids) {
             do {
-                if (speed != 80) {
+                if (speed <= 80) {
                     playRole.setY(playRole.getY() + speed);
                     speed += acc;
                 } else {
-                    break;
+                    speed = -80;
+                    jumpState = false;
                 }
                 try {
                     Thread.sleep(60);
@@ -284,7 +341,6 @@ public class Jump extends AppCompatActivity {
                     e.printStackTrace();
                 }
             } while (true);
-            return null;
         }
 
         @Override
