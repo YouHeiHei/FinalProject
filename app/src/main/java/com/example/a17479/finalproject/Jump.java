@@ -36,18 +36,18 @@ import java.util.Random;
 public class Jump extends AppCompatActivity {
     private final String api_key = "5af609cc3c737850c2826865d096692aaa34607577a63f64b16d0fc5f0fa9d90";
     public boolean collide = false;
-    public boolean jumpState = false;
+    public static boolean jumpState = false;
     public boolean startRun = false;
-    public int speed = -80;
-    public int acc = 10;
+    public static int speed = -60;
+    public static int acc = 6;
     public static int type;
     private int score = 0;
     TextView tap;//提示点击开始
     TextView score_num;//成绩
     ImageView background;//背景1
     ImageView background_fill;//背景2
-    ImageView playRole;//角色
-    ImageView barrier1;
+    static ImageView playRole;//角色
+    static ImageView barrier1;
     ImageView barrier2;
 
     private static RequestQueue requestQueue;
@@ -159,7 +159,7 @@ public class Jump extends AppCompatActivity {
         };
 
 //背景滚动
-        final Thread run = new Thread(new Runnable()
+        final Thread rolling = new Thread(new Runnable()
         {
             @Override
             public void run()
@@ -182,7 +182,7 @@ public class Jump extends AppCompatActivity {
             }
         });
 //角色运动
-        final Thread move = new Thread(new Runnable() {
+        final Thread animation = new Thread(new Runnable() {
             @Override
             public void run() {
                  if (type == 1) {
@@ -218,42 +218,28 @@ public class Jump extends AppCompatActivity {
                 barrier2.setAnimation(jump);
             }
         });
-//跳跃
-//        final Thread jump = new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                Animation jump = new TranslateAnimation(0,0,-360,0);
-//                jump.setDuration(800);
-//                playRole.setAnimation(jump);
-//                jumpState = false;
-//                //run2();
-//            }
-//            public void run2() {
-//                Animation jump = new TranslateAnimation(0,0,0,-360);
-//                jump.setDuration(800);
-//                playRole.setAnimation(jump);
-//            }
-//        });
+
 //跳跃按钮
+        final jump jump = new jump();
+        final Move moveB = new Move();
         final ImageButton jumpButton = findViewById(R.id.JumpButton);
         jumpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (!startRun) {
                     tap.setVisibility(View.INVISIBLE);
-                    run.run();
-                    move.run();
+                    rolling.run();
+                    animation.run();
                     scoreKeeper.run();
-                    barrier.run();
+                    //barrier.run();
                     startRun = true;
-                    jump jump = new jump();
-                    jump.execute();
+                    jumpState = true;
+//                    for (Request req : jump.execute();moveB.execute()) {
+//                        new BatchTask().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, req);
+//                    }
+
                 }
                 jumpState = true;
-//                if (!jumpState) {
-//                    jumpState = true;
-//                    //jump.run();
-//                }
                 Collision collision = new Collision();
                 collision.execute();
             }
@@ -313,39 +299,20 @@ public class Jump extends AppCompatActivity {
         }
     }
 
-//跳跃
-//    final Thread jump = new Thread(new Runnable() {
-//        @Override
-//        public void run() {
-//            Animation jump = new TranslateAnimation(0,0,-360,0);
-//            jump.setDuration(800);
-//            playRole.setAnimation(jump);
-//            jumpState = false;
-//            //run2();
-//        }
-//        public void run2() {
-//            Animation jump = new TranslateAnimation(0,0,0,-360);
-//            jump.setDuration(800);
-//            playRole.setAnimation(jump);
-//        }
-//    });
-
-    class jump extends AsyncTask<Void, Void, Void> {
+    static class Move extends AsyncTask<Void, Void, Void> {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
         }
         protected Void doInBackground(Void... voids) {
             do {
-                if (speed <= 80) {
-                    playRole.setY(playRole.getY() + speed);
-                    speed += acc;
+                if (barrier1.getX() > -100) {
+                    barrier1.setX(barrier1.getX() - 5);
                 } else {
-                    speed = -80;
-                    jumpState = false;
+                    barrier1.setX(2000);
                 }
                 try {
-                    Thread.sleep(60);
+                    Thread.sleep(5);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -354,6 +321,35 @@ public class Jump extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Void aVoid) {
+        }
+    }
+    static class jump extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+        protected Void doInBackground(Void... voids) {
+            do {
+                if (jumpState) {
+                    if (speed <= 60) {
+                        playRole.setY(playRole.getY() + speed);
+                        speed += acc;
+                    } else {
+                        speed = -60;
+                        jumpState = false;
+                    }
+                }
+                try {
+                    Thread.sleep(30);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            } while (true);
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            speed = -60;
             jumpState = false;
         }
     }

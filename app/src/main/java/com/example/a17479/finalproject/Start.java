@@ -26,6 +26,8 @@ public class Start extends AppCompatActivity {
         last.setText(String.valueOf(lastScore));
         final TextView high = findViewById(R.id.HighScore_Number);
         high.setText(String.valueOf(highScore));
+        final Jump.jump jump = new Jump.jump();
+        final Jump.Move moveB = new Jump.Move();
 
         final Button start_1 = findViewById(R.id.start_button1);
         final Button start_2 = findViewById(R.id.start_button2);
