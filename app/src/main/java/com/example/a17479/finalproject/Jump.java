@@ -23,6 +23,8 @@ public class Jump extends AppCompatActivity {
     public boolean collide = false;
     public boolean jumpState = false;
     public boolean startRun = false;
+    public int speed = -80;
+    public int acc = 10;
     public static int type;
     private int score = 0;
     TextView tap;//提示点击开始
@@ -137,22 +139,6 @@ public class Jump extends AppCompatActivity {
                 }
             }
         });
-//跳跃
-        final Thread jump = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                Animation jump = new TranslateAnimation(0,0,-360,0);
-                jump.setDuration(800);
-                playRole.setAnimation(jump);
-                jumpState = false;
-                //run2();
-            }
-            public void run2() {
-                Animation jump = new TranslateAnimation(0,0,0,-360);
-                jump.setDuration(800);
-                playRole.setAnimation(jump);
-            }
-        });
 
 //障碍物
         final Thread barrier = new Thread(new Runnable() {
@@ -167,6 +153,22 @@ public class Jump extends AppCompatActivity {
                 barrier1.setAnimation(jump);
             }
         });
+//跳跃
+//        final Thread jump = new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                Animation jump = new TranslateAnimation(0,0,-360,0);
+//                jump.setDuration(800);
+//                playRole.setAnimation(jump);
+//                jumpState = false;
+//                //run2();
+//            }
+//            public void run2() {
+//                Animation jump = new TranslateAnimation(0,0,0,-360);
+//                jump.setDuration(800);
+//                playRole.setAnimation(jump);
+//            }
+//        });
 //跳跃按钮
         final ImageButton jumpButton = findViewById(R.id.JumpButton);
         jumpButton.setOnClickListener(new View.OnClickListener() {
@@ -182,7 +184,7 @@ public class Jump extends AppCompatActivity {
                 }
                 if (!jumpState) {
                     jumpState = true;
-                    jump.run();
+                    //jump.run();
                     jump jump = new jump();
                     jump.execute();
                 }
@@ -221,6 +223,7 @@ public class Jump extends AppCompatActivity {
                         collide = true;
                     }
                 } else {
+                    jumpState = false;
                     break;
                 }
                 try {
@@ -245,6 +248,23 @@ public class Jump extends AppCompatActivity {
         }
     }
 
+//跳跃
+//    final Thread jump = new Thread(new Runnable() {
+//        @Override
+//        public void run() {
+//            Animation jump = new TranslateAnimation(0,0,-360,0);
+//            jump.setDuration(800);
+//            playRole.setAnimation(jump);
+//            jumpState = false;
+//            //run2();
+//        }
+//        public void run2() {
+//            Animation jump = new TranslateAnimation(0,0,0,-360);
+//            jump.setDuration(800);
+//            playRole.setAnimation(jump);
+//        }
+//    });
+
     class jump extends AsyncTask<Void, Void, Void> {
         @Override
         protected void onPreExecute() {
@@ -252,14 +272,16 @@ public class Jump extends AppCompatActivity {
         }
         protected Void doInBackground(Void... voids) {
             do {
-                if (true) {
+                if (speed != 80) {
+                    playRole.setY(playRole.getY() + speed);
+                    speed += acc;
                 } else {
                     break;
                 }
                 try {
-                    Thread.sleep(500);
+                    Thread.sleep(60);
                 } catch (InterruptedException e) {
-                    //e.printStackTrace();
+                    e.printStackTrace();
                 }
             } while (true);
             return null;
@@ -267,14 +289,7 @@ public class Jump extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-            Intent intent = new Intent(Jump.this, Start.class);
-            setContentView(R.layout.activity_jump);
-            startActivity(intent);
-            Start.lastScore = score;
-            if (score > Start.highScore) {
-                Start.highScore = score;
-            }
+            jumpState = false;
         }
     }
 }
