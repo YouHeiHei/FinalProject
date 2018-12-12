@@ -2,6 +2,7 @@ package com.example.a17479.finalproject;
 //package edu.illinois.cs.cs125.lab11;
 
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.graphics.drawable.AnimationDrawable;
@@ -41,7 +42,7 @@ public class Jump extends AppCompatActivity {
     public static int speed = -60;
     public static int acc = 6;
     public static int type;
-    private int score = 0;
+    private static int score = 0;
     TextView tap;//提示点击开始
     TextView score_num;//成绩
     ImageView background;//背景1
@@ -49,6 +50,9 @@ public class Jump extends AppCompatActivity {
     static ImageView playRole;//角色
     static ImageView barrier1;
     ImageView barrier2;
+    public Activity activity = this;
+
+
 
     private static RequestQueue requestQueue;
     private static final String TAG = "Youheihei";
@@ -107,6 +111,8 @@ public class Jump extends AppCompatActivity {
         playRole = findViewById(R.id.PlayRole);
         barrier1 = findViewById(R.id.Barrier1);
         barrier2 = findViewById(R.id.Barrier2);
+
+
         try {
             startAPICall();
         } catch (Exception e) {
@@ -132,6 +138,7 @@ public class Jump extends AppCompatActivity {
         }
         background.setImageResource(R.drawable.desert2);
         background_fill.setImageResource(R.drawable.desert2);
+
 
 //返回主界面
         final Button back = findViewById(R.id.Back);
@@ -220,9 +227,10 @@ public class Jump extends AppCompatActivity {
         });
 
 //跳跃按钮
-        final jump jump = new jump();
+        final jump jump = new jump(new Activity());
         final Move moveB = new Move();
         final ImageButton jumpButton = findViewById(R.id.JumpButton);
+//        final Collision collision = new Collision();
         jumpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -234,70 +242,65 @@ public class Jump extends AppCompatActivity {
                     //barrier.run();
                     startRun = true;
                     jumpState = true;
-//                    for (Request req : jump.execute();moveB.execute()) {
+//                    for (Request req : ) {
 //                        new BatchTask().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, req);
 //                    }
-
+                    jump.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+//                    collision.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                    moveB.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                 }
                 jumpState = true;
-                Collision collision = new Collision();
-                collision.execute();
+
+
             }
         });
     }
 
-    class Collision extends AsyncTask<Void, Void, Void> {
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
+//    class Intersection {
+//        public void gameover() {
+//            Intent intent = new Intent(Jump.this, Start.class);
+//            setContentView(R.layout.activity_jump);
+//            startActivity(intent);
+//            Start.lastScore = score;
+//            if (score > Start.highScore) {
+//                Start.highScore = score;
+//            }
+//        }
+//    }
 
-        @Override
-        protected Void doInBackground(Void... voids) {
-            do {
-                if (!collide) {
-                    //collide = true;
-                    Rect play = new Rect();
-                    playRole.getHitRect(play);
-                    double px = play.centerX();
-                    double py = play.centerY();
-                    Rect bar1 = new Rect();
-                    barrier1.getHitRect(bar1);
-                    double b1x = bar1.centerX();
-                    double b1y = bar1.centerY();
-                    Rect bar2 = new Rect();
-                    barrier2.getHitRect(bar2);
-                    int b2x = bar2.centerX();
-                    int b2y = bar2.centerY();
-                    if (Math.pow((b1x - px), 2) + Math.pow((b1y - py), 2) < 10000) {
-                        collide = true;
-                    } else if (Math.pow((b2x - px), 2) + Math.pow((b2y - py), 2) < 10000) {
-                        collide = true;
-                    }
-                } else {
-                    break;
-                }
-                try {
-                    Thread.sleep(500);
-                } catch (InterruptedException e) {
-                    //e.printStackTrace();
-                }
-            } while (true);
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-            Intent intent = new Intent(Jump.this, Start.class);
-            setContentView(R.layout.activity_jump);
-            startActivity(intent);
-            Start.lastScore = score;
-            if (score > Start.highScore) {
-                Start.highScore = score;
-            }
-        }
-    }
+//    static class Collision extends AsyncTask<Void, Void, Void> {
+//
+//        @Override
+//        protected void onPreExecute() {
+//            super.onPreExecute();
+//        }
+//
+//        @Override
+//        protected Void doInBackground(Void... voids) {
+//            int[] roleloc = new int[2];
+//            playRole.getLocationInWindow(roleloc);
+//            int[] barrloc = new int[2];
+//            barrier1.getLocationInWindow(barrloc);
+//            Rect role = new Rect(roleloc[0], roleloc[1], roleloc[0] + playRole.getWidth(), roleloc[1] + playRole.getHeight());
+//            Rect barr = new Rect(barrloc[0], barrloc[1], barrloc[0] + barrier1.getWidth(), barrloc[1] + barrier1.getHeight());
+//            do {
+//                if (role.intersect(barr)) {
+//                    break;
+//                }
+//                try {
+//                    Thread.sleep(500);
+//                } catch (InterruptedException e) {
+//                    //e.printStackTrace();
+//                }
+//            } while (true);
+//            return null;
+//        }
+//
+//        @Override
+//        protected void onPostExecute(Void aVoid) {
+//            super.onPostExecute(aVoid);
+//        }
+//    }
 
     static class Move extends AsyncTask<Void, Void, Void> {
         @Override
@@ -307,7 +310,7 @@ public class Jump extends AppCompatActivity {
         protected Void doInBackground(Void... voids) {
             do {
                 if (barrier1.getX() > -100) {
-                    barrier1.setX(barrier1.getX() - 5);
+                    barrier1.setX(barrier1.getX() - 10);
                 } else {
                     barrier1.setX(2000);
                 }
@@ -324,12 +327,24 @@ public class Jump extends AppCompatActivity {
         }
     }
     static class jump extends AsyncTask<Void, Void, Void> {
+        private Activity activity;
+        jump(Activity activity) {
+            this.activity = activity;
+        }
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
         }
         protected Void doInBackground(Void... voids) {
-            do {
+            do { int[] roleloc = new int[2];
+                playRole.getLocationInWindow(roleloc);
+                int[] barrloc = new int[2];
+                barrier1.getLocationInWindow(barrloc);
+                Rect role = new Rect(roleloc[0], roleloc[1], roleloc[0] + playRole.getWidth(), roleloc[1] + playRole.getHeight());
+                Rect barr = new Rect(barrloc[0], barrloc[1], barrloc[0] + barrier1.getWidth(), barrloc[1] + barrier1.getHeight());
+                if (role.intersect(barr)) {
+                    break;
+                }
                 if (jumpState) {
                     if (speed <= 60) {
                         playRole.setY(playRole.getY() + speed);
@@ -345,12 +360,21 @@ public class Jump extends AppCompatActivity {
                     e.printStackTrace();
                 }
             } while (true);
+            return null;
         }
 
         @Override
         protected void onPostExecute(Void aVoid) {
             speed = -60;
             jumpState = false;
+
+//            activity.startActivity(new Intent(activity, Start.class));
+//            activity.setContentView(R.layout.activity_jump);
+            Start.lastScore = score;
+            if (score > Start.highScore) {
+                Start.highScore = score;
+            }
         }
     }
+
 }
